@@ -3,9 +3,7 @@ import Anecdote from './Anectode'
 import { useSelector } from 'react-redux'
 
 const AnecList = () => {
-  const anecdotes = useSelector((state) =>
-    state.sort((a, b) => (a.votes < b.votes ? 1 : -1))
-  )
+  const anecdotes = useSelector((state) => state.notes)
 
   return (
     <div>
