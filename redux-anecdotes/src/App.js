@@ -12,11 +12,7 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch(initialFetchAnecdotes())
-    }
-
-    fetchData()
+    dispatch(initialFetchAnecdotes())
   }, [])
 
   return (
