@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { create } from '../reducers/anecdoteReducer'
+import { setNotif, resetNotif } from '../reducers/notificationReducer'
 
 const AddForm = () => {
   const [form, setForm] = useState('')
@@ -17,6 +18,13 @@ const AddForm = () => {
     e.preventDefault()
 
     dispatch(create(form))
+
+    const message = 'Anecdote is added..'
+    dispatch(setNotif({ notification: message, type: 'success' }))
+    setTimeout(() => {
+      dispatch(resetNotif())
+    }, 5000)
+
     setForm('')
   }
 
