@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+
+import anecdotesService from '../services/anecdotes'
 import { create } from '../reducers/anecdoteReducer'
 import { setNotif, resetNotif } from '../reducers/notificationReducer'
 
@@ -14,18 +16,23 @@ const AddForm = () => {
     setForm(value)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    dispatch(create(form))
+    const anectodeForm = { content: form, votes: 0 }
+    try {
+      const anecdoteAdded = await anecdotesService.create(anectodeForm)
+      dispatch(create(anecdoteAdded))
+      const message = 'Anecdote is added..'
+      dispatch(setNotif({ notification: message, type: 'success' }))
+      setTimeout(() => {
+        dispatch(resetNotif())
+      }, 5000)
 
-    const message = 'Anecdote is added..'
-    dispatch(setNotif({ notification: message, type: 'success' }))
-    setTimeout(() => {
-      dispatch(resetNotif())
-    }, 5000)
-
-    setForm('')
+      setForm('')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
