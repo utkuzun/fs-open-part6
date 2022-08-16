@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import anecdotesService from './services/anecdotes'
-import { setAnecds } from './reducers/anecdoteReducer'
+import { initialFetchAnecdotes } from './reducers/anecdoteReducer'
 
 import AddForm from './components/AddForm'
 import AnecList from './components/AnecList'
@@ -14,8 +13,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await anecdotesService.getAll()
-      dispatch(setAnecds(data))
+      dispatch(initialFetchAnecdotes())
     }
 
     fetchData()
